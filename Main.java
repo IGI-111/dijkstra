@@ -26,6 +26,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        if(args.length == 0){
+            System.out.println("Usage: java Main [file.dat...]");
+            return;
+        }
         try {
             for (String filePath : args) {
                 BufferedReader file = new BufferedReader(new FileReader(filePath));
