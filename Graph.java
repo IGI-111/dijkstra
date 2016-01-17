@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 import java.util.HashMap;
 
 public class Graph {
-    protected List<Vertex> vertices = new ArrayList<Vertex>();
-    protected Set<Edge> edges = new HashSet<Edge>();
+    protected final List<Vertex> vertices = new ArrayList<Vertex>();
+    protected final Set<Edge> edges = new HashSet<Edge>();
 
     public class Vertex {
         public String toString(){
@@ -55,19 +55,17 @@ public class Graph {
     }
 
     public Graph(double[][] matrix){
-        for (int i = 0; i < matrix.length; ++i) {
+        for (int i = 0; i < matrix.length; ++i)
             vertices.add(new Vertex());
-        }
-        for (int i = 0; i < matrix.length; ++i) {
-            for (int j = 0; j < matrix[0].length; ++j) {
+
+        for (int i = 0; i < matrix.length; ++i)
+            for (int j = 0; j < matrix[0].length; ++j)
                 if(matrix[i][j] != Double.POSITIVE_INFINITY){
                     Vertex from = vertices.get(i);
                     Vertex to = vertices.get(j);
                     double cost = matrix[i][j];
                     edges.add(new Edge(from, cost, to));
                 }
-            }
-        }
     }
 
     public String toString(){
@@ -80,12 +78,11 @@ public class Graph {
 
     public Map<Direction, Path> shortestPaths(){
         Map<Direction, Path> result = new HashMap<Direction, Path>();
-        for (Vertex v : vertices) {
+        for (Vertex v : vertices)
             for(Map.Entry<Vertex, Path> e : pathesFrom(v).entrySet()){
                 result.put(new Direction(v, e.getKey()),
                         e.getValue());
             }
-        }
         return result;
     }
 
@@ -103,7 +100,7 @@ public class Graph {
                 if(subgraph.contains(e.from) && !subgraph.contains(e.to) &&
                         (bestEdge == null || e.cost < bestEdge.cost)){
                     bestEdge = e;
-                        }
+                }
 
             // if we can't find any edge, we're finished here
             if(bestEdge == null)
